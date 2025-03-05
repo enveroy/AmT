@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Borrowed Chemical</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            padding: 0;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px gray;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: green;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: darkgreen;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            body {
+                margin: 15px;
+            }
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                margin: 10px;
+            }
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            input, select, .btn {
+                padding: 8px;
+            }
+            .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Add a Borrowed Chemical</h2>
+    <div class="container">
+        <form action="/add" method="POST">
+            <div class="form-group">
+                <label for="borrower_name">Borrower Name:</label>
+                <input type="text" id="borrower_name" name="borrower_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lab">Lab:</label>
+                <input type="text" id="lab" name="lab" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="division">Division:</label>
+                <input type="text" id="division" name="division" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input type="text" id="phone_number" name="phone_number" pattern="\d{10}" maxlength="10" placeholder="Enter 10 digits" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="chemical_name">Chemical Name:</label>
+                <input type="text" id="chemical_name" name="chemical_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="bottle_quantity">Bottle Quantity:</label>
+                <input type="text" id="bottle_quantity" name="bottle_quantity" required>
+            </div>
+            
+            <button type="submit" class="btn">Add Entry</button>
+        </form>
+        
+        <a href="/" class="back-link">Back to Home</a>
+    </div>
+</body>
+</html>

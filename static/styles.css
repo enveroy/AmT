@@ -1,0 +1,362 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.header h2 {
+    margin: 0 0 20px 0;
+    font-size: 28px;
+    color: #333;
+}
+
+/* Buttons */
+.button-wrapper {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.btn {
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.resolve-btn {
+    background-color: #f39c12;
+    color: white;
+    padding: 8px 20px;
+}
+
+.add-btn {
+    background-color: #2ecc71;
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+}
+
+.indent-btn {
+    background-color: #e74c3c;
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+}
+
+.home-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 20px;
+}
+
+.validate-btn {
+    background-color: #f39c12;
+    color: white;
+    font-weight: bold; /* Optional: Set text color to black for better readability */
+}
+
+/* Table Styling using CSS Grid */
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.table-header, .table-row {
+    display: grid;
+    grid-template-columns: 
+        minmax(50px, 0.5fr)    /* ID */
+        minmax(150px, 2fr)     /* Borrower Name */
+        minmax(100px, 1fr)     /* Division */
+        minmax(120px, 1fr)     /* Phone Number */
+        minmax(150px, 2fr)     /* Chemical Name */
+        minmax(120px, 1.5fr)   /* Date Borrowed */
+        minmax(100px, 1fr);    /* Status */
+    text-align: center;
+    padding: 12px 8px;
+    align-items: center;
+}
+
+/* Indent table columns */
+.indent-header, .indent-row {
+    grid-template-columns: 
+        minmax(40px, 0.5fr)    /* ID */
+        minmax(100px, 1fr)     /* Date */
+        minmax(150px, 2fr)     /* Chemical Name */
+        minmax(120px, 1.5fr)   /* CAS Number */
+        minmax(120px, 1.5fr)   /* Company */
+        minmax(80px, 1fr)      /* Quantity */
+        minmax(80px, 1fr)      /* Bottles */
+        minmax(100px, 1fr);    /* Status */
+}
+
+.table-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-radius: 5px 5px 0 0;
+}
+
+.table-body {
+    display: grid;
+    gap: 2px;
+}
+
+.table-row {
+    background-color: white;
+    transition: 0.3s;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.table-row:nth-child(even) {
+    background-color: #f7f9fc;
+}
+
+.table-row:hover {
+    background-color: #d1ecf1;
+}
+
+/* Status colors */
+.status-borrowed {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.status-returned {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* Indent Status colors */
+.status-pending {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.status-approved {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-rejected {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .table-header, .table-row {
+        grid-template-columns: 
+            minmax(40px, 0.5fr)    /* ID */
+            minmax(120px, 2fr)     /* Borrower Name */
+            minmax(80px, 1fr)      /* Division */
+            minmax(100px, 1fr)     /* Phone Number */
+            minmax(120px, 1.5fr)   /* Chemical Name */
+            minmax(100px, 1fr)     /* Date Borrowed */
+            minmax(80px, 0.8fr);   /* Status */
+        padding: 10px 5px;
+        font-size: 0.95rem;
+    }
+    
+    .indent-header, .indent-row {
+        grid-template-columns: 
+            minmax(40px, 0.5fr)    /* ID */
+            minmax(90px, 1fr)      /* Date */
+            minmax(120px, 1.5fr)   /* Chemical Name */
+            minmax(100px, 1fr)     /* CAS Number */
+            minmax(100px, 1fr)     /* Company */
+            minmax(70px, 0.8fr)    /* Quantity */
+            minmax(70px, 0.8fr)    /* Bottles */
+            minmax(80px, 0.8fr);   /* Status */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+        border-radius: 0;
+    }
+    
+    .header h2 {
+        font-size: 24px;
+    }
+    
+    .button-wrapper {
+        gap: 10px;
+    }
+    
+    .table-container {
+        margin: 0 -5px;
+        border-radius: 0;
+    }
+    
+    /* Convert to scrollable horizontal table for smaller screens */
+    .table-header, .table-row {
+        grid-template-columns: 
+            minmax(40px, 0.5fr)    /* ID */
+            minmax(120px, 1.5fr)   /* Borrower Name */
+            minmax(80px, 1fr)      /* Division */
+            minmax(100px, 1fr)     /* Phone Number */
+            minmax(120px, 1.5fr)   /* Chemical Name */
+            minmax(100px, 1fr)     /* Date Borrowed */
+            minmax(80px, 0.8fr);   /* Status */
+        min-width: 700px;          /* Ensure minimum width for scrolling */
+        font-size: 0.9rem;
+    }
+    
+    .indent-header, .indent-row {
+        grid-template-columns: 
+            minmax(40px, 0.5fr)    /* ID */
+            minmax(90px, 1fr)      /* Date */
+            minmax(120px, 1.5fr)   /* Chemical Name */
+            minmax(100px, 1fr)     /* CAS Number */
+            minmax(100px, 1fr)     /* Company */
+            minmax(70px, 0.8fr)    /* Quantity */
+            minmax(70px, 0.8fr)    /* Bottles */
+            minmax(80px, 0.8fr);   /* Status */
+        min-width: 750px;          /* Ensure minimum width for scrolling */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .header h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .btn {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    
+    .button-wrapper {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+    padding: 5px;
+    margin: 2px;
+    border-radius: 5px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: white;
+    background-color: #007BFF;
+}
+
+.pagination a:hover {
+    background-color: #0056b3;
+}
+
+.pagination span {
+    background-color: #ccc;
+    color: black;
+}
+.export-btn {
+    background-color: #f39c12;
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+}
+
+.export-btn:hover {
+    background-color: #e67e22;
+}
+.export-btn {
+    background-color: #771598;
+    color: white;
+    font-weight: bold;
+    padding: 8px 20px;
+}
+
+.export-btn:hover {
+    background-color: #be2091;
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

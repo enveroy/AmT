@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resolve Borrowed Chemicals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px gray;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            min-width: 650px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        .btn {
+            padding: 10px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-block;
+            margin: 5px;
+        }
+        .return-btn {
+            background-color: green;
+            color: white;
+            padding: 8px 15px;
+            font-weight: bold;
+        }
+        .home-btn {
+            background-color: #007BFF;
+            color: white;
+        }
+        
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            body {
+                margin: 10px;
+            }
+            .container {
+                width: 100%;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .btn {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                margin: 5px;
+            }
+            .container {
+                padding: 10px;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            table {
+                font-size: 0.9rem;
+            }
+            .btn {
+                padding: 6px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Resolve Borrowed Chemicals</h2>
+        <a href="/" class="btn home-btn">Home</a>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Borrower Name</th>
+                        <th>Lab</th>
+                        <th>Division</th>
+                        <th>Phone Number</th>
+                        <th>Chemical Name</th>
+                        <th>Bottle Quantity</th>
+                        <th>Date Borrowed</th>
+                        <th>Status</th>
+                        <th>Return Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for borrower in borrowers %}
+                    <tr>
+                        <td>{{ borrower.id }}</td>
+                        <td>{{ borrower.borrower_name }}</td>
+                        <td>{{ borrower.lab }}</td>
+                        <td>{{ borrower.division }}</td>
+                        <td>{{ borrower.phone_number }}</td>
+                        <td>{{ borrower.chemical_name }}</td>
+                        <td>{{ borrower.bottle_quantity }}</td>
+                        <td>{{ borrower.date_borrowed }}</td>
+                        <td>{{ borrower.status }}</td>
+                        <td>
+                            {% if borrower.status == 'Borrowed' %}
+                                <a href="/return/{{ borrower.id }}" class="btn return-btn">Mark as Returned</a>
+                            {% else %}
+                                {{ borrower.date_returned.strftime('%d-%m-%Y') }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination links -->
+        <div class="pagination">
+            {% if pages > 1 %}
+                {% if page > 1 %}
+                    <a href="{{ url_for('resolve', page=1) }}">First</a>
+                    <a href="{{ url_for('resolve', page=page-1) }}">Previous</a>
+                {% endif %}
+                
+                {% for p in range(1, pages+1) %}
+                    {% if p == page %}
+                        <span>{{ p }}</span>
+                    {% else %}
+                        <a href="{{ url_for('resolve', page=p) }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page < pages %}
+                    <a href="{{ url_for('resolve', page=page+1) }}">Next</a>
+                    <a href="{{ url_for('resolve', page=pages) }}">Last</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

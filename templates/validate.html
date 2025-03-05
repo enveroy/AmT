@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate Indent</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px gray;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            min-width: 650px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        .btn {
+            padding: 10px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-block;
+            margin: 5px;
+        }
+        .return-btn {
+            background-color: green;
+            color: white;
+            padding: 8px 15px;
+            font-weight: bold;
+        }
+        .home-btn {
+            background-color: #007BFF;
+            color: white;
+        }
+        
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            body {
+                margin: 10px;
+            }
+            .container {
+                width: 100%;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .btn {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                margin: 5px;
+            }
+            .container {
+                padding: 10px;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            table {
+                font-size: 0.9rem;
+            }
+            .btn {
+                padding: 6px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Validate Indent</h2>
+        {% if indents %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Chemical Name</th>
+                    <th>CAS Number</th>
+                    <th>Company</th>
+                    <th>Quantity</th>
+                    <th>Bottles</th>
+                    <th>Status</th>
+                    <th>Validate</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for indent in indents %}
+                <tr>
+                    <td>{{ indent.date }}</td>
+                    <td>{{ indent.chemical_name }}</td>
+                    <td>{{ indent.cas_no }}</td>
+                    <td>{{ indent.company }}</td>
+                    <td>{{ indent.quantity }}</td>
+                    <td>{{ indent.bottle_quantity }}</td>
+                    <td>{{ indent.status }}</td>
+                    <td>
+                        <form action="/validate_indent/{{ indent.id }}" method="POST">
+                            <select name="status">
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                            <button type="submit" class="btn">Validate</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No Entries to Validate. Go read a paper or two </p>
+        {% endif %}
+        <a href="/indent" class="btn home-btn">Back to Indents</a>
+    </div>
+</body>
+</html>

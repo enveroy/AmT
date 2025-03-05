@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indents </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Indents</h2>
+            
+            <!-- Button wrapper below the title -->
+            <div class="button-wrapper">
+                <a href="/" class="btn home-btn">Home</a>
+                <a href="/add_indent" class="btn add-btn">Add Indent</a>
+                <a href="/validate_indent" class="btn validate-btn">Validate Indents</a>
+                <button class="btn export-btn" onclick="showModal()">Export to CSV</button>
+            </div>
+        </div>
+        
+        <!-- Modal dialog for date range input -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Enter Date Range</h2>
+                <form id="dateForm">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" required>
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" required>
+                    <button type="submit">Export</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Grid-based layout for the table -->
+        <div class="table-container">
+            <div class="table-header indent-header">
+                <div class="col-id">ID</div>
+                <div class="col-date">Date</div>
+                <div class="col-chemical">Chemical Name</div>
+                <div class="col-cas">CAS Number</div>
+                <div class="col-company">Company</div>
+                <div class="col-quantity">Quantity</div>
+                <div class="col-bottles">Bottles</div>
+                <div class="col-status">Status</div>
+            </div>
+            
+            <div class="table-body">
+                {% for indent in indents %}
+                <div class="table-row indent-row">
+                    <div class="col-id">{{ indent.id }}</div>
+                    <div class="col-date">{{ indent.date }}</div>
+                    <div class="col-chemical">{{ indent.chemical_name }}</div>
+                    <div class="col-cas">{{ indent.cas_no }}</div>
+                    <div class="col-company">{{ indent.company }}</div>
+                    <div class="col-quantity">{{ indent.quantity }}</div>
+                    <div class="col-bottles">{{ indent.bottle_quantity }}</div>
+                    <div class="col-status status-{{ indent.status.lower() }}">{{ indent.status }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Pagination links -->
+        <div class="pagination">
+            {% if pages > 1 %}
+                {% if page > 1 %}
+                    <a href="{{ url_for('indent', page=1) }}">First</a>
+                    <a href="{{ url_for('indent', page=page-1) }}">Previous</a>
+                {% endif %}
+                
+                {% for p in range(1, pages+1) %}
+                    {% if p == page %}
+                        <span>{{ p }}</span>
+                    {% else %}
+                        <a href="{{ url_for('indent', page=p) }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page < pages %}
+                    <a href="{{ url_for('indent', page=page+1) }}">Next</a>
+                    <a href="{{ url_for('indent', page=pages) }}">Last</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("modal");
+        
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        // Function to show the modal
+        function showModal() {
+            modal.style.display = "block";
+        }
+        
+        // Handle form submission
+        document.getElementById('dateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var start_date = document.getElementById('start_date').value;
+            var end_date = document.getElementById('end_date').value;
+            
+            // Send AJAX request to export CSV
+            fetch('/export_indents?start_date=' + start_date + '&end_date=' + end_date)
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = window.URL || window.webkitURL;
+                    var link = url.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = link;
+                    a.download = "indents.csv";
+                    a.click();
+                });
+            
+            // Close the modal
+            modal.style.display = "none";
+        });
+    </script>
+</body>
+</html>
